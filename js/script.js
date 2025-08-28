@@ -13,15 +13,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let activeLink = null;
-  indicator.style.width = 0;
+  let isHovering = false;
+  let scrollTimeout = null;
+  let lastScrollPosition = 0;
 
   // Sayfa refresh olunca başa yumuşak kay
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Scroll ile active link ve navbar renk kontrolü
-  window.addEventListener('scroll', () => {
+  // Throttle function - çok sık çalışmayı engeller
+  function throttle(func, delay) {
+    let timeoutId;
+    let lastExecTime = 0;
+    return function (...args) {
+      const currentTime = Date.now();
+      if (currentTime - lastExecTime > delay) {
+        func.apply(this, args);
+        lastExecTime = currentTime;
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+        }, delay - (currentTime - lastExecTime));
+      }
+    };
+  }
+
+  // ===== SCROLL EVENT - THROTTLED =====
+  const handleScroll = throttle(() => {
     const scrollPos = window.scrollY;
-    const offset = navbar.offsetHeight + 5;
+    
+    // Scroll pozisyon değişmemişse hiçbir şey yapma
+    if (Math.abs(scrollPos - lastScrollPosition) < 5) return;
+    lastScrollPosition = scrollPos;
+    
+    const offset = navbar.offsetHeight + 10;
 
     // Navbar arka plan ve küçülme
     if (scrollPos > 50) {
@@ -30,60 +56,169 @@ document.addEventListener('DOMContentLoaded', () => {
       navbar.classList.remove('scrolled');
     }
 
+    // Hover sırasında scroll ile bant değişmesini engelle
+    if (isHovering) return;
+
     // Hero section üstündeyse bantı kaldır
-    if (scrollPos + offset < sections[0].section.offsetTop) {
-      activeLink = null;
-      indicator.style.width = 0;
+    if (sections.length === 0 || scrollPos + offset < sections[0].section.offsetTop) {
+      if (activeLink !== null) {
+        activeLink = null;
+        hideIndicator();
+      }
       return;
     }
 
-    // Her section'u kontrol et
+    // En uygun section'u bul
+    let newActiveLink = null;
+    let maxVisibleHeight = 0;
+
     for (const { link, section } of sections) {
-      if (scrollPos + offset >= section.offsetTop && scrollPos + offset < section.offsetTop + section.offsetHeight) {
-        if (activeLink !== link) {
-          activeLink = link;
-          moveIndicator(link);
+      const sectionTop = section.offsetTop;
+      const sectionBottom = sectionTop + section.offsetHeight;
+      const viewportTop = scrollPos + offset;
+      const viewportBottom = scrollPos + window.innerHeight;
+
+      // Section görünür aralıkta mı?
+      if (viewportTop < sectionBottom && viewportBottom > sectionTop) {
+        const visibleTop = Math.max(viewportTop, sectionTop);
+        const visibleBottom = Math.min(viewportBottom, sectionBottom);
+        const visibleHeight = visibleBottom - visibleTop;
+
+        if (visibleHeight > maxVisibleHeight) {
+          maxVisibleHeight = visibleHeight;
+          newActiveLink = link;
         }
-        break;
       }
     }
+
+    // Active link değiştiyse bantı hareket ettir
+    if (newActiveLink !== activeLink) {
+      activeLink = newActiveLink;
+      if (activeLink) {
+        showIndicatorForActive(activeLink);
+      } else {
+        hideIndicator();
+      }
+    }
+  }, 16); // ~60fps
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // ===== HAMBURGER MENU =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function () {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      }
+    });
+  }
+
+  // ===== HOVER EFFECTS - SADECE RENK DEĞİŞİMİ =====
+  links.forEach((link) => {
+    link.addEventListener('mouseenter', function () {
+      if (window.innerWidth <= 768) return;
+      
+      isHovering = true;
+      // Sadece CSS hover efekti çalışsın, bant hareket etmesin
+    });
+
+    link.addEventListener('mouseleave', function () {
+      if (window.innerWidth <= 768) return;
+      
+      // Küçük bir delay ile hover bittiğini işaretle
+      setTimeout(() => {
+        isHovering = false;
+        // Hover bittikten sonra active link varsa bantı göster
+        if (activeLink) {
+          showIndicatorForActive(activeLink);
+        }
+      }, 50);
+    });
   });
 
-  // Linklere tıklama: smooth scroll + hash update
+  // ===== LINK TIKLAMA =====
   links.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const targetId = link.getAttribute("href").substring(1);
       const targetSection = document.getElementById(targetId);
+      
       if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth" });
-
+        // Smooth scroll
+        targetSection.scrollIntoView({ 
+          behavior: "smooth",
+          block: "start"
+        });
+        
         // Adres çubuğuna hash ekle
         history.pushState(null, null, `#${targetId}`);
+        
+        // Active link güncelle
+        activeLink = link;
+        showIndicatorForActive(link);
       }
-      activeLink = link;
-      moveIndicator(link);
     });
   });
 
-  // Logoya tıklayınca başa dön ve bant kaybolsun
-  logo.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    activeLink = null;
-    indicator.style.width = 0;
-    history.pushState(null, null, `#`); // hash temizle
-  });
-
-  function moveIndicator(link) {
-    const rect = link.getBoundingClientRect();
-    const navRect = link.closest(".navbar").getBoundingClientRect();
-    const indicatorWidth = 120; // istediğin sabit genişlik, örn: 120px
-
-    // Linkin ortasına hizala
-    indicator.style.left = (rect.left - navRect.left + rect.width / 2 - indicatorWidth / 2) + "px";
-    indicator.style.width = indicatorWidth + "px"; // sabit genişlik
+  // ===== LOGO TIKLAMA =====
+  if (logo) {
+    logo.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      activeLink = null;
+      hideIndicator();
+      history.pushState(null, null, window.location.pathname);
+    });
   }
 
+  // ===== INDICATOR FONKSİYONLARI =====
+  function showIndicatorForActive(link) {
+    if (window.innerWidth <= 768) return;
+    
+    const rect = link.getBoundingClientRect();
+    const navRect = navbar.getBoundingClientRect();
+    const indicatorWidth = 120;
+
+    const leftPos = rect.left - navRect.left + rect.width / 2 - indicatorWidth / 2;
+    
+    indicator.style.left = leftPos + "px";
+    indicator.style.width = indicatorWidth + "px";
+    indicator.style.opacity = '1';
+  }
+
+  function hideIndicator() {
+    indicator.style.width = '0';
+    indicator.style.opacity = '0';
+  }
+
+  // Window resize'da indicator pozisyonunu düzelt
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (activeLink && window.innerWidth > 768) {
+        showIndicatorForActive(activeLink);
+      } else {
+        hideIndicator();
+      }
+    }, 150);
+  });
 
   // ===== CIRCLE ROTATION =====
   let currentPositions = [0, 1, 2, 3, 4, 5];
@@ -101,26 +236,33 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { isAnimating = false; }, 600);
   }
 
-  document.querySelectorAll('.circle').forEach(circle => circle.addEventListener('click', rotate));
+  document.querySelectorAll('.circle').forEach(circle => 
+    circle.addEventListener('click', rotate)
+  );
+  
   document.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') rotate();
-  });
-  // ===== END CIRCLE ROTATION =====
-
-  // ===== SWIPER =====
-  const swiper = new Swiper(".swiper", {
-    slidesPerView: 3,
-    spaceBetween: 20,
-    loop: true,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-      0: { slidesPerView: 1 },
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      rotate();
     }
   });
+
+  // ===== SWIPER =====
+  if (typeof Swiper !== 'undefined') {
+    const swiper = new Swiper(".swiper", {
+      slidesPerView: 3,
+      spaceBetween: 20,
+      loop: true,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      breakpoints: {
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }
+    });
+  }
 
 });

@@ -13,7 +13,19 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  /* Demo için yükseklik ekledim */
+  height: 200vh;
+  background-image: url("../assets/arkaplan.png");
+  background-size: 100% auto;
+  /* Genişliği %100, yükseklik otomatik */
+  background-repeat: repeat;
+  /* tekrar etmesin */
+  background-attachment: scroll;
+  /* scroll ile birlikte kaysın */
+  background-position: top center;
+  /* üstten ortadan başlasın */
 }
+
 
 /* Navbar */
 .navbar {
@@ -28,12 +40,11 @@ body {
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background 0.3s, padding 0.3s;
+  background: white;
 }
 
 .navbar.scrolled {
   background: rgba(255, 255, 255, 0.95);
-  /* scroll sonrası renkli */
-  /* padding: 0px 50px; */
   height: 10%;
 }
 
@@ -47,19 +58,49 @@ body {
   transition: height 0.3s;
 }
 
-/* Linkler */
-.navbar ul {
+/* Hamburger Menu - Mobilde görünür */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 101;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-main);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Nav Links */
+.nav-links {
   display: flex;
   list-style: none;
   align-items: center;
   gap: 5rem;
+  position: relative;
 }
 
 .navbar-logo {
   margin: 0 4rem;
 }
 
-.navbar ul li a {
+.nav-links li a {
   text-decoration: none;
   color: var(--text-main);
   font-size: 18px;
@@ -67,9 +108,8 @@ body {
   font-weight: 600;
 }
 
-.navbar ul li a:hover {
+.nav-links li a:hover {
   color: #CBA135;
-  /* transform: translateY(-2px); */
 }
 
 .nav-links li {
@@ -78,11 +118,10 @@ body {
   justify-content: center;
 }
 
-/* indicator (kayan bant) */
+/* Indicator (kayan bant) */
 .nav-indicator {
   position: absolute;
   height: 40px;
-  /* linklerin yüksekliğine göre ayarla */
   background: rgba(203, 161, 53, 0.2);
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -91,7 +130,119 @@ body {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  /* tam ortalanır */
+}
+
+/* Mobile Dropdown Menu */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.mobile-menu.active {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu li {
+  width: 100%;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 15px 30px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-menu a:hover {
+  background: rgba(203, 161, 53, 0.1);
+  color: #CBA135;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .navbar {
+    justify-content: space-between;
+    padding: 0px 20px;
+    height: 80px;
+  }
+
+  .navbar.scrolled {
+    height: 70px;
+  }
+
+  .navbar .logo img {
+    height: 80px;
+  }
+
+  .navbar.scrolled .logo img {
+    height: 75px;
+  }
+
+  /* Desktop nav-links gizle */
+  .nav-links {
+    display: none;
+  }
+
+  /* Mobile logo göster */
+  .mobile-logo {
+    display: block !important;
+  }
+
+  /* Hamburger göster */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Mobile menu göster */
+  .mobile-menu {
+    display: block;
+  }
+
+  .navbar-logo {
+    margin: 0;
+  }
+
+  /* Logo solda konumlandır */
+  .navbar {
+    align-items: center;
+  }
+
+  .nav-indicator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0px 15px;
+  }
+
+  .mobile-menu a {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
 }
 
 
@@ -105,8 +256,7 @@ section {
 
 /* Hero Section */
 #hero {
-  background: url('../assets/images/hero-bg.jpg') no-repeat center/cover;
-  color: white;
+  color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,7 +275,8 @@ section {
 
 /*Hakkımızda*/
 .about {
-  background: #f8f6f1; /* soft krem */
+  /* background: rgba(248, 246, 241, 0.9); */
+  /* soft krem */
   padding: 80px 20px;
 }
 
@@ -140,37 +291,43 @@ section {
 
 .about-image {
   width: 80%;
-  aspect-ratio: 1 / 1;    /* Kare yapar */
-  overflow: hidden;       /* Taşan kısımları gizler */
+  aspect-ratio: 1 / 1;
+  /* Kare yapar */
+  overflow: hidden;
+  /* Taşan kısımları gizler */
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .about-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;      /* Görseli kırpar, kareyi doldurur */
+  object-fit: cover;
+  /* Görseli kırpar, kareyi doldurur */
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .about-image img:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
 }
 
 
 .about-text {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
+  /* Şeffaflık eklendi */
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .about-text h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #7b5493; /* Mor başlık */
-  border-left: 6px solid #d7b156; /* Altın vurgu */
+  color: #7b5493;
+  /* Mor başlık */
+  border-left: 6px solid #d7b156;
+  /* Altın vurgu */
   padding-left: 12px;
 }
 
@@ -184,7 +341,8 @@ section {
 .about-btn {
   display: inline-block;
   margin-top: 20px;
-  background: #d7b156; /* Altın buton */
+  background: #d7b156;
+  /* Altın buton */
   color: #fff;
   padding: 12px 24px;
   border-radius: 30px;
@@ -194,7 +352,8 @@ section {
 }
 
 .about-btn:hover {
-  background: #7b5493; /* Hover’da mor */
+  background: #7b5493;
+  /* Hover'da mor */
   transform: translateY(-2px);
 }
 
@@ -202,6 +361,10 @@ section {
 /*Seminars*/
 .seminars-section {
   text-align: center;
+  /* background: rgba(255, 255, 255, 0.85); */
+  margin: 0 20px;
+  border-radius: 20px;
+  padding: 60px 40px;
 }
 
 .seminars-section h2 {
@@ -291,7 +454,8 @@ section {
 /* Contact Section */
 #contact {
   padding: 80px 20px;
-  background: radial-gradient(rgba(203, 161, 53, 0.15) 3px, transparent 3px);
+  background-color: #fff;
+  background-image: radial-gradient(rgba(203, 161, 53, 0.15) 3px, transparent 3px);
   background-size: 10px 10px;
   color: var(--text-main);
   text-align: center;
@@ -304,7 +468,7 @@ section {
 .contact-newsletter i {
   font-size: 3rem;
   /* color: #7b5493; */
-  color:var(--text-main);
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
@@ -470,7 +634,7 @@ section {
 
 .icon:hover {
   background: #7b5493;
-  /* hover’da ters çevir */
+  /* hover'da ters çevir */
   color: #f5f3f7;
   transform: translateY(-2px);
 }
@@ -500,6 +664,10 @@ section {
   position: relative;
   width: 600px;
   height: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  /* Hafif şeffaf arka plan */
+  border-radius: 20px;
+  padding: 20px;
 }
 
 .circle {
@@ -625,9 +793,10 @@ section {
 
 footer {
   font-size: 1.1rem;
+  background-color: #fff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   color: var(--text-main);
   text-align: center;
   padding: 20px 0;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
