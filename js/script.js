@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== SCROLL EVENT - THROTTLED =====
   const handleScroll = throttle(() => {
     const scrollPos = window.scrollY;
-    
+
     // Scroll pozisyon değişmemişse hiçbir şey yapma
     if (Math.abs(scrollPos - lastScrollPosition) < 5) return;
     lastScrollPosition = scrollPos;
-    
+
     const offset = navbar.offsetHeight + 10;
 
     // Navbar arka plan ve küçülme
@@ -134,14 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
   links.forEach((link) => {
     link.addEventListener('mouseenter', function () {
       if (window.innerWidth <= 768) return;
-      
+
       isHovering = true;
       // Sadece CSS hover efekti çalışsın, bant hareket etmesin
     });
 
     link.addEventListener('mouseleave', function () {
       if (window.innerWidth <= 768) return;
-      
+
       // Küçük bir delay ile hover bittiğini işaretle
       setTimeout(() => {
         isHovering = false;
@@ -159,17 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const targetId = link.getAttribute("href").substring(1);
       const targetSection = document.getElementById(targetId);
-      
+
       if (targetSection) {
         // Smooth scroll
-        targetSection.scrollIntoView({ 
+        targetSection.scrollIntoView({
           behavior: "smooth",
           block: "start"
         });
-        
+
         // Adres çubuğuna hash ekle
         history.pushState(null, null, `#${targetId}`);
-        
+
         // Active link güncelle
         activeLink = link;
         showIndicatorForActive(link);
@@ -190,13 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== INDICATOR FONKSİYONLARI =====
   function showIndicatorForActive(link) {
     if (window.innerWidth <= 768) return;
-    
+
     const rect = link.getBoundingClientRect();
     const navRect = navbar.getBoundingClientRect();
     const indicatorWidth = 120;
 
     const leftPos = rect.left - navRect.left + rect.width / 2 - indicatorWidth / 2;
-    
+
     indicator.style.left = leftPos + "px";
     indicator.style.width = indicatorWidth + "px";
     indicator.style.opacity = '1';
@@ -224,6 +224,34 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPositions = [0, 1, 2, 3, 4, 5];
   let isAnimating = false;
 
+  // Full text content
+  const fullTexts = [
+    {
+      title: "Access Bars",
+      text: "Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla uygulanan bir yöntemdir. Bu noktalar, hayatımızda para, sağlık, mutluluk, yaratıcılık gibi farklı alanları temsil eder. Bars çalışması sırasında zihinde biriken gereksiz düşünceler ve sınırlayıcı kalıplar serbest bırakılır. Sonuç olarak kişi daha sakin, açık ve özgür bir zihinle yaşamına devam edebilir."
+    },
+    {
+      title: "ThetaHealing",
+      text: "ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı olan güçlü bir şifa yöntemidir. Kişi, özel bir meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına getirir ve bu derin gevşeme halinde içsel değişim kolaylaşır. Kısıtlayıcı inançlar yerine destekleyici ve iyileştirici düşünceler yerleştirilerek, kişinin yaşamında daha huzurlu ve dengeli adımlar atması hedeflenir."
+    },
+    {
+      title: "Nefes Çalışmaları",
+      text: "Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes teknikleri sayesinde beden, zihin ve ruh dengelenir. Derin ve bilinçli nefes, stresi azaltır, zihinsel berraklığı artırır ve bedeni canlandırır. Düzenli yapılan nefes çalışmaları, hem duygusal yüklerden arınmayı hem de günlük hayatta daha dingin ve enerjik hissetmeyi sağlar."
+    },
+    {
+      title: "Meditasyon",
+      text: "Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu güçlendirir, stres ve kaygıyı azaltır. Rehberli meditasyonlardan sessizlik çalışmalarına kadar farklı yöntemlerle uygulanabilir. Meditasyon sayesinde kişi, kendi iç dünyasına daha derin bir yolculuk yapar ve yaşamında farkındalık geliştirmeye başlar."
+    },
+    {
+      title: "Reiki",
+      text: "Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir şifa tekniğidir. Reiki uygulaması sırasında eller aracılığıyla enerji akışı sağlanır ve bu sayede kişinin bedeninde, zihninde ve ruhunda denge kurulur. Reiki, rahatlama, enerji artışı ve içsel huzur arayanlar için etkili bir yöntemdir. Düzenli uygulamalarla yaşam enerjisi yeniden uyumlu hale gelir."
+    },
+    {
+      title: "Kalbin Rehberliği",
+      text: "Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı öğrenmektir. Zihnin karmaşasından sıyrılarak kalbe odaklanıldığında, daha doğru ve uyumlu kararlar almak kolaylaşır. Kalbin rehberliğini takip eden kişi, yaşamını sevgi, huzur ve güven duygusuyla şekillendirebilir. Bu yaklaşım, hem ruhsal yolculukta hem de günlük hayatta kişinin kendi özüne daha yakın hissetmesini sağlar."
+    }
+  ];
+
   function rotate() {
     if (isAnimating) return;
     isAnimating = true;
@@ -236,16 +264,61 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { isAnimating = false; }, 600);
   }
 
-  document.querySelectorAll('.circle').forEach(circle => 
-    circle.addEventListener('click', rotate)
-  );
-  
+  // Modal functions
+  function openModal(index) {
+    const modal = document.getElementById('textModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+
+    modalTitle.textContent = fullTexts[index].title;
+    modalText.textContent = fullTexts[index].text;
+    modal.style.display = 'block';
+
+    document.body.style.overflow = 'hidden'; // scroll kapat
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('textModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  // Circle click -> sadece döndür
+  document.querySelectorAll('.circle').forEach(circle => {
+    circle.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('read-more-btn')) {
+        rotate();
+      }
+    });
+  });
+
+  // Buton click -> modal aç
+  document.querySelectorAll('.read-more-btn').forEach((btn, index) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // bubble engelle
+      openModal(index);
+    });
+  });
+
+  // Klavye eventleri
   document.addEventListener('keydown', (e) => {
     if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
       e.preventDefault();
       rotate();
     }
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   });
+
+  // Modal dışında tıklayınca kapat
+  window.onclick = function (event) {
+    const modal = document.getElementById('textModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+
 
   // ===== SWIPER =====
   if (typeof Swiper !== 'undefined') {
