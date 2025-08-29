@@ -91,55 +91,65 @@
     </div>
   </section>
 
-<!-- Hizmetler -->
-<section id="services">
-  <div class="carousel-container">
-    <div class="circle pos-0" data-index="0">
-      <div class="circle-title">Access Bars</div>
-      <div class="circle-description">Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla
-        uygulanan bir yöntemdir...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-    <div class="circle pos-1" data-index="1">
-      <div class="circle-title">ThetaHealing</div>
-      <div class="circle-description">ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı
-        olan güçlü bir şifa yöntemidir...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-    <div class="circle pos-2" data-index="2">
-      <div class="circle-title">Nefes Çalışmaları</div>
-      <div class="circle-description">Nefes, yaşam enerjimizin en önemli kaynağıdır...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-    <div class="circle pos-3" data-index="3">
-      <div class="circle-title">Meditasyon</div>
-      <div class="circle-description">Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından
-        biridir...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-    <div class="circle pos-4" data-index="4">
-      <div class="circle-title">Reiki</div>
-      <div class="circle-description">Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir
-        şifa tekniğidir...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-    <div class="circle pos-5" data-index="5">
-      <div class="circle-title">Kalbin Rehberliği</div>
-      <div class="circle-description">Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı
-        öğrenmektir...</div>
-      <button class="read-more-btn">Devamını Oku</button>
-    </div>
-  </div>
+  <section id="services">
+    <div class="carousel-container">
+      <button class="carousel-btn prev-btn" aria-label="Önceki">&lt;</button>
 
-  <!-- Modal -->
-  <div id="textModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h2 class="modal-title" id="modalTitle"></h2>
-      <p class="modal-text" id="modalText"></p>
+      <div class="circle pos-0" data-index="0">
+        <div class="circle-title">Access Bars</div>
+        <div class="circle-description">Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla
+          uygulanan bir yöntemdir. Bu noktalar, hayatımızda para, sağlık, mutluluk, yaratıcılık gibi farklı alanları
+          temsil eder.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <div class="circle pos-1" data-index="1">
+        <div class="circle-title">ThetaHealing</div>
+        <div class="circle-description">ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı
+          olan güçlü bir şifa yöntemidir. Kişi, özel bir meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına
+          getirir.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <div class="circle pos-2" data-index="2">
+        <div class="circle-title">Nefes Çalışmaları</div>
+        <div class="circle-description">Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes teknikleri
+          sayesinde beden, zihin ve ruh dengelenir.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <div class="circle pos-3" data-index="3">
+        <div class="circle-title">Meditasyon</div>
+        <div class="circle-description">Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından
+          biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu güçlendirir.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <div class="circle pos-4" data-index="4">
+        <div class="circle-title">Reiki</div>
+        <div class="circle-description">Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir
+          şifa tekniğidir. Eller aracılığıyla enerji akışı sağlanır.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <div class="circle pos-5" data-index="5">
+        <div class="circle-title">Kalbin Rehberliği</div>
+        <div class="circle-description">Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı öğrenmektir.
+          Zihnin karmaşasından sıyrılarak kalbe odaklanılır.</div>
+        <button class="read-more-btn">Devamını Oku</button>
+      </div>
+
+      <button class="carousel-btn next-btn" aria-label="Sonraki">&gt;</button>
     </div>
-  </div>
-</section>
+
+    <div id="textModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-text" id="modalText"></p>
+      </div>
+    </div>
+  </section>
 
 
 
@@ -151,7 +161,7 @@
         <div class="swiper-slide">
           <div class="seminar-card">
             <div class="seminar-img">
-              <img src="assets/images/kalbinrehberligi.png" alt="Seminer 1">
+              <img src="assets/images/kalbinrehberligi.jpg" alt="Seminer 1">
               <div class="hover-overlay">
                 <button class="fiyat-btn" data-seminar="Seminer 1">Fiyat Bilgisi Al</button>
               </div>

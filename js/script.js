@@ -220,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 150);
   });
 
-  // ===== CIRCLE ROTATION =====
   let currentPositions = [0, 1, 2, 3, 4, 5];
   let isAnimating = false;
 
@@ -252,16 +251,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  function rotate() {
+  // Rotate function
+  function rotate(direction = 'next') {
     if (isAnimating) return;
     isAnimating = true;
-    currentPositions.push(currentPositions.shift());
+
     const circles = document.querySelectorAll('.circle');
+
+    if (direction === 'next') {
+      currentPositions.push(currentPositions.shift());
+    } else {
+      currentPositions.unshift(currentPositions.pop());
+    }
+
     circles.forEach((circle, index) => {
       circle.className = 'circle';
       circle.classList.add(`pos-${currentPositions[index]}`);
     });
-    setTimeout(() => { isAnimating = false; }, 600);
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 600);
   }
 
   // Modal functions
@@ -270,11 +280,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
 
-    modalTitle.textContent = fullTexts[index].title;
-    modalText.textContent = fullTexts[index].text;
-    modal.style.display = 'block';
+    // currentPositions array'inde hangi içerik pos-1'de ise onun index'ini bul
+    const pos1Index = currentPositions.indexOf(1);
+    const actualIndex = (pos1Index + index) % fullTexts.length;
 
-    document.body.style.overflow = 'hidden'; // scroll kapat
+    modalTitle.textContent = fullTexts[actualIndex].title;
+    modalText.textContent = fullTexts[actualIndex].text;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
@@ -283,41 +296,114 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'auto';
   }
 
-  // Circle click -> sadece döndür
+  // Event listeners
+
+  // Circle click -> sadece döndür (mobil dışında)
   document.querySelectorAll('.circle').forEach(circle => {
     circle.addEventListener('click', (e) => {
       if (!e.target.classList.contains('read-more-btn')) {
-        rotate();
+        if (window.innerWidth > 480) {
+          rotate();
+        }
       }
     });
   });
 
-  // Buton click -> modal aç
-  document.querySelectorAll('.read-more-btn').forEach((btn, index) => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // bubble engelle
+  // Read more button click -> modal aç
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('read-more-btn')) {
+      e.stopPropagation();
+      const circle = e.target.closest('.circle');
+      const index = parseInt(circle.getAttribute('data-index'));
       openModal(index);
-    });
+    }
+  });
+
+  // Navigation buttons
+  document.querySelector('.next-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    rotate('next');
+  });
+
+  document.querySelector('.prev-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    rotate('prev');
   });
 
   // Klavye eventleri
   document.addEventListener('keydown', (e) => {
     if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
       e.preventDefault();
-      rotate();
+      rotate('next');
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      rotate('prev');
     }
     if (e.key === 'Escape') {
       closeModal();
     }
   });
 
-  // Modal dışında tıklayınca kapat
-  window.onclick = function (event) {
+  // Modal close events
+  window.addEventListener("click", (event) => {
     const modal = document.getElementById('textModal');
     if (event.target === modal) {
       closeModal();
     }
+  });
+
+  document.querySelector(".close-btn").addEventListener("click", closeModal);
+
+  // Touch events for mobile swipe (optional enhancement)
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (window.innerWidth > 480) return; // Sadece mobilde çalışsın
+
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        rotate('next'); // Sola swipe -> sonraki
+      } else {
+        rotate('prev'); // Sağa swipe -> önceki
+      }
+    }
   }
+
+  // Seminer Fiyat Butonları
+  document.querySelectorAll('.fiyat-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // circle click gibi davranmasını engelle
+      const modal = document.getElementById('textModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalText = document.getElementById('modalText');
+
+      modalTitle.textContent = btn.dataset.seminar;
+      modalText.innerHTML = `
+      Fiyat ve detaylar için aşağıdaki seçeneklerden birini seçebilirsiniz:<br><br>
+      <div style="display:flex; gap:15px; justify-content:center;">
+        <button onclick="window.open('https://www.instagram.com/yourprofile','_blank')" class="fiyat-option-btn">Instagram</button>
+        <button onclick="window.location.href='tel:+905XXXXXXXXX'" class="fiyat-option-btn">Telefon</button>
+      </div>
+    `;
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+  });
 
 
   // ===== SWIPER =====

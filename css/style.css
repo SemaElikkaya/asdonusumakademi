@@ -252,7 +252,7 @@ body {
 section {
   min-height: 100vh;
   width: 100%;
-  padding: 100px 20px 50px 20px;
+  /* padding: 100px 20px 50px 20px; */
   box-sizing: border-box;
 }
 
@@ -590,8 +590,6 @@ section {
 /*Seminars*/
 .seminars-section {
   text-align: center;
-  /* background: rgba(255, 255, 255, 0.85); */
-  /* margin: 0 20px; */
   border-radius: 20px;
   padding: 60px 40px;
 }
@@ -607,17 +605,15 @@ section {
   margin-bottom: 4rem;
 }
 
-/* Swiper container ortalama */
 .swiper {
   max-width: 80vw;
-  height: 100%;
-  /* margin: 0 auto; */
+  height: auto;
   padding: 0 10px;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  color: #7b5493 ! important;
+  color: #7b5493 !important;
   font-weight: bolder;
 }
 
@@ -627,6 +623,10 @@ section {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
   transition: transform 0.3s ease;
+  height: 500px;
+  /* uzun kart */
+  display: flex;
+  flex-direction: column;
 }
 
 .seminar-card:hover {
@@ -635,15 +635,17 @@ section {
 
 .seminar-card h3 {
   padding: 15px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-align: center;
   color: var(--text-main);
+  margin-top: auto;
 }
 
 .seminar-img {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 450px;
+  /* fotoğraf için daha büyük alan */
   overflow: hidden;
 }
 
@@ -672,13 +674,16 @@ section {
 }
 
 .fiyat-btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
   border-radius: 25px;
-  background: #3a3a3a;
+  background: #7b5493;
   color: white;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
 }
+
 
 /* Contact Section */
 #contact {
@@ -888,9 +893,10 @@ section {
   align-items: center;
   text-align: center;
   width: 100%;
-  min-height: 100vh;
-  padding: 80px 20px;
   box-sizing: border-box;
+  margin-bottom: 5rem;
+  min-height: 600px;
+  padding-top: 10rem;
 }
 
 /* Carousel Container */
@@ -901,6 +907,8 @@ section {
   height: 500px;
   border-radius: 20px;
   padding: 20px;
+  /* overflow: hidden; */
+  /* Taşan içeriği gizle */
 }
 
 /* Genel Circle */
@@ -923,6 +931,7 @@ section {
   font-size: 16px;
   margin-bottom: 8px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 }
 
 .circle-description {
@@ -938,7 +947,7 @@ section {
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
-  cursor: pointer;
+  pointer-events: none;
 }
 
 .read-more-btn {
@@ -953,6 +962,7 @@ section {
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
   display: none;
+  z-index: 5;
 }
 
 .circle.pos-1 .read-more-btn {
@@ -976,7 +986,7 @@ section {
 
 .modal-content {
   background: linear-gradient(135deg, #ffffff, #f7f5ef);
-  margin: 5% auto;
+  margin: 20% auto;
   padding: 30px;
   border-radius: 20px;
   width: 90%;
@@ -1018,50 +1028,68 @@ section {
   color: #333;
 }
 
-/* Circle Positionları (Desktop) */
+/* Desktop Circle Positionları */
 .circle.pos-0 {
-  width: 15vw;
-  height: 15vw;
-  left: -12vw;
-  top: 18vw;
-  background: linear-gradient(135deg, #d7b156, #7b5493);
+  width: 300px;
+  height: 300px;
+  left: -250px;
+  top: 150px;
+  background-color: #ff1744e3;
+  /* Kırmızı canlı */
+  /* box-shadow: 0 0 40px rgba(255, 23, 68, 0.7); */
 }
+
 .circle.pos-1 {
-  width: 30vw;
-  height: 30vw;
-  left: 4vw;
-  top: 4vw;
-  background: linear-gradient(135deg, #7b5493, #d7b156);
+  width: 500px;
+  height: 500px;
+  right: 50px;
+  top: -50px;
+  background-color: #ff9100ba;
+  /* Turuncu canlı */
   z-index: 10;
+  /* box-shadow: 0 0 45px rgba(255, 145, 0, 0.7); */
 }
+
 .circle.pos-2 {
-  width: 15vw;
-  height: 15vw;
-  left: 35vw;
-  top: 18vw;
-  background: linear-gradient(135deg, #d7b156, #7b5493);
+  width: 300px;
+  height: 300px;
+  right: -255px;
+  top: 150px;
+  background-color: #ffea00e6;
+  /* Sarı canlı */
+  /* box-shadow: 0 0 40px rgba(255, 234, 0, 0.7); */
 }
+
 .circle.pos-3 {
-  width: 11vw;
-  height: 11vw;
-  left: 25vw;
-  top: 33vw;
-  background: linear-gradient(135deg, #7b5493, #9c6bbf);
+  width: 200px;
+  height: 200px;
+  left: 425px;
+  top: 400px;
+  background-color: #00c853ba;
+  /* Yeşil canlı */
+  /* box-shadow: 0 0 35px rgba(0, 200, 83, 0.7); */
 }
+
 .circle.pos-4 {
-  width: 9vw;
-  height: 9vw;
-  left: 14.5vw;
-  top: 37vw;
-  background: linear-gradient(135deg, #d7b156, #b6983c);
+  width: 180px;
+  height: 180px;
+  left: 215px;
+  top: 470px;
+  background-color: #2979ffd4;
+  /* Mavi canlı */
+  /* box-shadow: 0 0 35px rgba(41, 121, 255, 0.7); */
 }
+
 .circle.pos-5 {
-  width: 11vw;
-  height: 11vw;
-  left: 2vw;
-  top: 33vw;
-  background: linear-gradient(135deg, #7b5493, #5a3b6e);
+  width: 200px;
+  height: 200px;
+  left: -15px;
+  top: 400px;
+  background-color: #aa00ffba;
+  /* Mor / İndigo canlı */
+  /* box-shadow: 0 0 40px rgba(170, 0, 255, 0.7); */
 }
+
 
 .circle.pos-1 .circle-description {
   opacity: 1;
@@ -1070,42 +1098,144 @@ section {
 }
 
 /* Hover Effect */
-.circle:hover {
+.circle:not(.pos-1):hover {
   transform: scale(1.06);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
 }
 
-/* Responsive Orta Ekranlar (769px - 1496px) */
-@media (max-width: 1496px) and (min-width: 769px) {
+.circle.pos-1:hover {
+  transform: scale(1.03);
+}
+
+/* Mobil Navigasyon Butonları */
+.carousel-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background-color: rgb(103 58 183 / 35%);
+  border: 1px solid #7b5493;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.prev-btn {
+  left: 10px;
+  color: #7b5493;
+}
+
+.next-btn {
+  right: 10px;
+  color: #7b5493;
+}
+
+/* 1150px'den küçük ekranlar için geçiş dönemi */
+@media (max-width: 1150px) {
   .carousel-container {
-    margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 500px;
+    height: 450px;
+  }
+
+  .circle.pos-0 {
+    left: -210px;
+    top: 85px;
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle.pos-1 {
+    width: 400px;
+    height: 400px;
+    right: 50px;
+    top: -60px;
+  }
+
+  .circle.pos-2 {
+    right: -212px;
+    top: 85px;
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle.pos-3 {
+    left: 330px;
+    top: 280px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .circle.pos-4 {
+    left: 167px;
+    top: 350px;
+    width: 175px;
+    height: 175px;
+  }
+
+  .circle.pos-5 {
+    width: 200px;
+    height: 200px;
+    left: -30px;
+    top: 280px;
+  }
+
+  .circle.pos-3,
+  .circle.pos-4,
+  .circle.pos-5 {
+    /* opacity: 0.3; */
+    pointer-events: none;
+    transform: scale(0.7);
   }
 }
 
-/* Tablet ve Küçük Ekranlar */
-@media (max-width: 768px) {
+/* Tablet Görünümü (900px ve altı) */
+@media (max-width: 900px) {
   .carousel-container {
     height: 350px;
     padding: 15px;
+    max-width: 100%;
   }
-  .circle.pos-0,
-  .circle.pos-2 {
-    width: 90px;
-    height: 90px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .circle.pos-0 { left: 20px; }
-  .circle.pos-2 { right: 20px; left: auto; }
+
+  /* Ortadaki büyük daire */
   .circle.pos-1 {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    right: auto;
   }
+
+  /* Soldaki küçük daire */
+  .circle.pos-0 {
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+  }
+
+  /* Sağdaki küçük daire */
+  .circle.pos-2 {
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    right: 15px;
+    left: auto;
+    transform: translateY(-50%);
+  }
+
+  /* Diğer daireler gizli */
   .circle.pos-3,
   .circle.pos-4,
   .circle.pos-5 {
@@ -1113,33 +1243,90 @@ section {
     pointer-events: none;
     transform: scale(0);
   }
+
+  .circle-title {
+    font-size: 14px;
+  }
+
   .circle.pos-1 .circle-description {
     opacity: 1;
     font-size: 13px;
     padding: 0 18px;
     -webkit-line-clamp: 5;
   }
-}
 
-/* Çok küçük cihazlar */
-@media (max-width: 480px) {
-  .carousel-container { height: 320px; }
-  .circle.pos-1 { width: 160px; height: 160px; }
-  .circle.pos-0, .circle.pos-2 { width: 80px; height: 80px; }
-  .circle.pos-1 .circle-description { font-size: 11px; -webkit-line-clamp: 4; }
-}
-@media (max-width: 320px) {
-  .carousel-container { height: 280px; }
-  .circle.pos-1 { width: 140px; height: 140px; }
-  .circle.pos-0, .circle.pos-2 { width: 70px; height: 70px; }
-  .circle.pos-1 .circle-description {
-    font-size: 10px;
-    padding: 0 10px;
-    -webkit-line-clamp: 3;
-    line-height: 1.3;
+  /* Yan dairelerdeki metinleri gizle */
+  .circle.pos-0 .circle-description,
+  .circle.pos-2 .circle-description,
+  .circle.pos-0 .read-more-btn,
+  .circle.pos-2 .read-more-btn {
+    display: none;
+  }
+
+  .circle.pos-0 .circle-title,
+  .circle.pos-2 .circle-title {
+    font-size: 12px;
   }
 }
 
+/* Mobil Görünüm */
+@media (max-width: 480px) {
+  .carousel-container {
+    height: 320px;
+    padding: 10px;
+  }
+
+  /* Sadece ortadaki daire görünür */
+  .circle.pos-1 {
+    width: 250px;
+    height: 250px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    right: auto;
+  }
+
+  /* Diğer tüm daireler tamamen gizlenir */
+  .circle:not(.pos-1) {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.3);
+    left: 50%;
+    top: 50%;
+  }
+
+  .circle.pos-1 .circle-description {
+    font-size: 12px;
+    -webkit-line-clamp: 4;
+    padding: 0 20px;
+  }
+
+  .circle.pos-1 .circle-title {
+    font-size: 16px;
+  }
+
+  /* Okları göster */
+  .carousel-btn {
+    display: block;
+  }
+
+  .read-more-btn {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}
+
+/* Çok küçük ekranlar için */
+@media (max-width: 360px) {
+  .circle.pos-1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .carousel-container {
+    height: 280px;
+  }
+}
 
 footer {
   font-size: 1.1rem;
