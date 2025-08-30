@@ -1,280 +1,331 @@
 <!DOCTYPE html>
 <html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>As Dönüşüm Akademi</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="assets/asdonusumlogo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marmelad&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Marmelad&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>As Dönüşüm Akademi</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="assets/asdonusumlogo.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marmelad&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body>
-  <nav class="navbar">
-    <!-- Desktop Navigation -->
-    <ul class="nav-links">
-      <li><a href="#about">Hakkımızda</a></li>
-      <li><a href="#services">Hizmetlerimiz</a></li>
-      <li class="navbar-logo">
-        <div class="logo">
-          <img src="assets/asdonusumlogo.png" alt="As Dönüşüm Akademi Logo">
-        </div>
-      </li>
-      <li><a href="#seminars">Seminerler</a></li>
-      <li><a href="#contact">İletişim</a></li>
-    </ul>
-    <span class="nav-indicator"></span>
-
-    <!-- Mobile Logo - sadece mobilde görünür -->
-    <div class="navbar-logo mobile-logo" style="display: none;">
-      <div class="logo">
-        <img src="assets/asdonusumlogo.png" alt="As Dönüşüm Akademi Logo">
-      </div>
-    </div>
-
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-      <ul>
+  <body>
+    <nav class="navbar">
+      <!-- Desktop Navigation -->
+      <ul class="nav-links">
         <li><a href="#about">Hakkımızda</a></li>
         <li><a href="#services">Hizmetlerimiz</a></li>
+        <li class="navbar-logo">
+          <div class="logo">
+            <img src="assets/asdonusumlogo.png" alt="As Dönüşüm Akademi Logo" />
+          </div>
+        </li>
         <li><a href="#seminars">Seminerler</a></li>
         <li><a href="#contact">İletişim</a></li>
       </ul>
-    </div>
-  </nav>
+      <span class="nav-indicator"></span>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-
-    <div class="hero-content">
-      <div class="hero-heading">
-        <h1>AS DÖNÜŞÜM AKADEMİ</h1>
-        <p>Kendi dönüşümünü keşfet, başkalarına rehber ol.</p>
-      </div>
-      <div class="hero-buttons">
-        <a href="#services" class="btn btn-primary">Hizmetlerimiz</a>
-        <a href="#seminars" class="btn btn-primary">Seminerler</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Hakkımızda -->
-  <section id="about" class="about">
-    <div class="about-container">
-      <div class="about-image">
-        <img src="assets/images/hakkimizda.png" alt="Kişisel dönüşüm">
-      </div>
-      <div class="about-text">
-        <h2>Hakkımızda</h2>
-        <p>
-          Biz, insanın içsel yolculuğunu onurlandıran ve dönüşümüne alan açan bir topluluğuz.
-          ThetaHealing®, Access Bars®, Reiki, Kalbin Rehberliği, Meditasyon ve Nefes Çalışmaları ile;
-          kişinin özüne dönmesine, yaşamındaki tıkanıklıkları serbest bırakmasına ve potansiyelini
-          keşfetmesine rehberlik ediyoruz.
-        </p>
-        <p>
-          Akademimizde güvenle kendinizi keşfedeceğiniz, kalpten kalbe bağların kurulduğu şefkatli
-          bir alan sunuyoruz. 🌸
-        </p>
-        <a href="#contact" class="about-btn">Bizimle Tanışın</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="services">
-    <div class="carousel-container">
-      <button class="carousel-btn prev-btn" aria-label="Önceki">&lt;</button>
-
-      <div class="circle pos-0" data-index="0">
-        <div class="circle-title">Access Bars</div>
-        <div class="circle-description">Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla
-          uygulanan bir yöntemdir. Bu noktalar, hayatımızda para, sağlık, mutluluk, yaratıcılık gibi farklı alanları
-          temsil eder.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <div class="circle pos-1" data-index="1">
-        <div class="circle-title">ThetaHealing</div>
-        <div class="circle-description">ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı
-          olan güçlü bir şifa yöntemidir. Kişi, özel bir meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına
-          getirir.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <div class="circle pos-2" data-index="2">
-        <div class="circle-title">Nefes Çalışmaları</div>
-        <div class="circle-description">Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes teknikleri
-          sayesinde beden, zihin ve ruh dengelenir.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <div class="circle pos-3" data-index="3">
-        <div class="circle-title">Meditasyon</div>
-        <div class="circle-description">Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından
-          biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu güçlendirir.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <div class="circle pos-4" data-index="4">
-        <div class="circle-title">Reiki</div>
-        <div class="circle-description">Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir
-          şifa tekniğidir. Eller aracılığıyla enerji akışı sağlanır.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <div class="circle pos-5" data-index="5">
-        <div class="circle-title">Kalbin Rehberliği</div>
-        <div class="circle-description">Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı öğrenmektir.
-          Zihnin karmaşasından sıyrılarak kalbe odaklanılır.</div>
-        <button class="read-more-btn">Devamını Oku</button>
-      </div>
-
-      <button class="carousel-btn next-btn" aria-label="Sonraki">&gt;</button>
-    </div>
-
-    <div id="textModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2 class="modal-title" id="modalTitle"></h2>
-        <p class="modal-text" id="modalText"></p>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- Seminerler -->
-  <section id="seminars" class="seminars-section">
-    <h2>Seminerler</h2>
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="seminar-card">
-            <div class="seminar-img">
-              <img src="assets/images/kalbinrehberligi.jpg" alt="Seminer 1">
-              <div class="hover-overlay">
-                <button class="fiyat-btn" data-seminar="Seminer 1">Fiyat Bilgisi Al</button>
-              </div>
-            </div>
-            <h3>Seminer 1</h3>
+      <!-- Mobile Logo - sadece mobilde görünür -->
+      <div class="navbar-logo mobile-logo" style="display: none">
+        <a href="#hero">
+          <div class="logo">
+            <img src="assets/asdonusumlogo.png" alt="As Dönüşüm Akademi Logo" />
           </div>
+        </a>
+      </div>
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <ul>
+          <li><a href="#about">Hakkımızda</a></li>
+          <li><a href="#services">Hizmetlerimiz</a></li>
+          <li><a href="#seminars">Seminerler</a></li>
+          <li><a href="#contact">İletişim</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+
+      <div class="hero-content">
+        <div class="hero-heading">
+          <h1>AS DÖNÜŞÜM AKADEMİ</h1>
+          <p>Kendi dönüşümünü keşfet, başkalarına rehber ol.</p>
+        </div>
+        <div class="hero-buttons">
+          <a href="#services" class="btn btn-primary">Hizmetlerimiz</a>
+          <a href="#seminars" class="btn btn-primary">Seminerler</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hakkımızda -->
+    <section id="about" class="about">
+      <div class="about-container">
+        <div class="about-image">
+          <img src="assets/images/hakkimizda.png" alt="Kişisel dönüşüm" />
+        </div>
+        <div class="about-text">
+          <h2>Hakkımızda</h2>
+          <p>
+            Biz, insanın içsel yolculuğunu onurlandıran ve dönüşümüne alan açan
+            bir topluluğuz. ThetaHealing®, Access Bars®, Reiki, Kalbin
+            Rehberliği, Meditasyon ve Nefes Çalışmaları ile; kişinin özüne
+            dönmesine, yaşamındaki tıkanıklıkları serbest bırakmasına ve
+            potansiyelini keşfetmesine rehberlik ediyoruz.
+          </p>
+          <p>
+            Akademimizde güvenle kendinizi keşfedeceğiniz, kalpten kalbe
+            bağların kurulduğu şefkatli bir alan sunuyoruz. 🌸
+          </p>
+          <a href="#contact" class="about-btn">Bizimle Tanışın</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="carousel-container">
+        <button class="carousel-btn prev-btn" aria-label="Önceki">&lt;</button>
+
+        <div class="circle pos-0" data-index="0">
+          <div class="circle-title">Access Bars</div>
+          <div class="circle-description">
+            Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif
+            dokunuşlarla uygulanan bir yöntemdir. Bu noktalar, hayatımızda para,
+            sağlık, mutluluk, yaratıcılık gibi farklı alanları temsil eder.
+          </div>
+          <button class="read-more-btn">Devamını Oku</button>
         </div>
 
-        <div class="swiper-slide">
-          <div class="seminar-card">
-            <div class="seminar-img">
-              <img src="assets/images/resim-yok.jpg" alt="Seminer 2">
-              <div class="hover-overlay">
-                <button class="fiyat-btn" data-seminar="Seminer 2">Fiyat Bilgisi Al</button>
-              </div>
-            </div>
-            <h3>Seminer 2</h3>
+        <div class="circle pos-1" data-index="1">
+          <div class="circle-title">ThetaHealing</div>
+          <div class="circle-description">
+            ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları
+            dönüştürmeye yardımcı olan güçlü bir şifa yöntemidir. Kişi, özel bir
+            meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına getirir.
           </div>
+          <button class="read-more-btn">Devamını Oku</button>
         </div>
 
-        <div class="swiper-slide">
-          <div class="seminar-card">
-            <div class="seminar-img">
-              <img src="assets/images/resim-yok.jpg" alt="Seminer 3">
-              <div class="hover-overlay">
-                <button class="fiyat-btn" data-seminar="Seminer 3">Fiyat Bilgisi Al</button>
-              </div>
-            </div>
-            <h3>Seminer 3</h3>
+        <div class="circle pos-2" data-index="2">
+          <div class="circle-title">Nefes Çalışmaları</div>
+          <div class="circle-description">
+            Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes
+            teknikleri sayesinde beden, zihin ve ruh dengelenir.
           </div>
+          <button class="read-more-btn">Devamını Oku</button>
         </div>
 
-        <div class="swiper-slide">
-          <div class="seminar-card">
-            <div class="seminar-img">
-              <img src="assets/images/resim-yok.jpg" alt="Seminer 3">
-              <div class="hover-overlay">
-                <button class="fiyat-btn" data-seminar="Seminer 3">Fiyat Bilgisi Al</button>
-              </div>
-            </div>
-            <h3>Seminer 3</h3>
+        <div class="circle pos-3" data-index="3">
+          <div class="circle-title">Meditasyon</div>
+          <div class="circle-description">
+            Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili
+            yollarından biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu
+            güçlendirir.
           </div>
+          <button class="read-more-btn">Devamını Oku</button>
         </div>
 
+        <div class="circle pos-4" data-index="4">
+          <div class="circle-title">Reiki</div>
+          <div class="circle-description">
+            Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon
+            kökenli bir şifa tekniğidir. Eller aracılığıyla enerji akışı
+            sağlanır.
+          </div>
+          <button class="read-more-btn">Devamını Oku</button>
+        </div>
+
+        <div class="circle pos-5" data-index="5">
+          <div class="circle-title">Kalbin Rehberliği</div>
+          <div class="circle-description">
+            Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı
+            öğrenmektir. Zihnin karmaşasından sıyrılarak kalbe odaklanılır.
+          </div>
+          <button class="read-more-btn">Devamını Oku</button>
+        </div>
+
+        <button class="carousel-btn next-btn" aria-label="Sonraki">&gt;</button>
       </div>
 
-      <!-- Swiper butonları -->
+      <div id="textModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <p class="modal-text" id="modalText"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seminerler -->
+    <section id="seminars" class="seminars-section">
+      <h2>SEMİNERLER</h2>
+      <div class="swiper-container">
+        <div class="swiper-button-prev"></div>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="seminar-card">
+              <div class="seminar-img">
+                <div class="soon-text">ÇOK YAKINDA</div>
+                <div class="hover-overlay">
+                  <button class="fiyat-btn" data-seminar="Seminer 1">
+                    Fiyat Bilgisi Al
+                  </button>
+                </div>
+              </div>
+              <h3>Seminer 1</h3>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="seminar-card">
+              <div class="seminar-img">
+                <div class="soon-text">ÇOK YAKINDA</div>
+                <div class="hover-overlay">
+                  <button class="fiyat-btn" data-seminar="Seminer 2">
+                    Fiyat Bilgisi Al
+                  </button>
+                </div>
+              </div>
+              <h3>Seminer 2</h3>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="seminar-card">
+              <div class="seminar-img">
+                <div class="soon-text">ÇOK YAKINDA</div>
+                <div class="hover-overlay">
+                  <button class="fiyat-btn" data-seminar="Seminer 3">
+                    Fiyat Bilgisi Al
+                  </button>
+                </div>
+              </div>
+              <h3>Seminer 3</h3>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="seminar-card">
+              <div class="seminar-img">
+                <div class="soon-text">ÇOK YAKINDA</div>
+                <div class="hover-overlay">
+                  <button class="fiyat-btn" data-seminar="Seminer 3">
+                    Fiyat Bilgisi Al
+                  </button>
+                </div>
+              </div>
+              <h3>Seminer 4</h3>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
-  </section>
-
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <!-- İletişim -->
-  <section id="contact">
-    <div class="contact-newsletter">
-      <i class="fa-regular fa-paper-plane"></i>
-      <h2>Bültene Abone Ol!</h2>
-      <p>Gelişmelerden haberdar olmak için e-posta adresinizi bırakın.</p>
-      <form>
-        <input type="email" placeholder="E-posta adresiniz..." required>
-        <button type="submit">Beni Bilgilendir!</button>
-      </form>
-    </div>
-
-    <div class="contact-info">
-      <div class="info-card">
-        <i class="fas fa-map-marker-alt"></i>
-        <h4>Adres</h4>
-        <hr>
-        <p>4923 Market Street, Orlando FL</p>
       </div>
-      <div class="info-card">
-        <i class="fas fa-envelope"></i>
-        <h4>E-posta</h4>
-        <hr>
-        <p><a href="mailto:info@asdonusumakademi.com">info@asdonusumakademi.com</a></p>
+      
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- İletişim -->
+    <section id="contact">
+      <div class="contact-container">
+        <div class="contact-newsletter">
+          <i class="fa-regular fa-paper-plane"></i>
+          <h2>Bültene Abone Ol!</h2>
+          <p>Gelişmelerden haberdar olmak için e-posta adresinizi bırakın.</p>
+          <form
+            action="https://formsubmit.co/sarikavakayse26@gmail.com"
+            id="contactForm"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="_next"
+              value="http://www.asdonusumakademi.com"
+            />
+            <input
+              type="hidden"
+              name="merhaba_bana_mail_gönderin"
+              id="merhaba"
+            />
+            <input
+              type="email"
+              placeholder="E-posta adresiniz..."
+              id="mail"
+              name="mail_adresi"
+              required
+            />
+            <button id="submitButton" type="submit">Beni Bilgilendir!</button>
+          </form>
+        </div>
+        <div class="contact-info">
+          <div class="info-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>Adres</h4>
+            <hr />
+            <p>
+              Vişnelik Mh. Kayıhan Sk.26/2 Abs apartmanı, Eskisehir, Turkey
+              26100
+            </p>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-phone-alt"></i>
+            <h4>Telefon</h4>
+            <hr />
+            <p>+90 (507) 955 48 91</p>
+          </div>
+        </div>
+        <div class="contact-form">
+          <div class="socials">
+            <a
+              href="https://www.instagram.com/asdonusumakademi/"
+              class="icon"
+              target="_blank"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.lifedroppilates.com/"
+              class="icon"
+              target="_blank"
+              ><i class="fa-solid fa-globe"></i
+            ></a>
+          </div>
+        </div>
       </div>
-      <div class="info-card">
-        <i class="fas fa-phone-alt"></i>
-        <h4>Telefon</h4>
-        <hr>
-        <p>+1 (555) 902-8832</p>
-      </div>
-    </div>
+    </section>
 
-    <div class="contact-form">
-      <!-- <h2>Bizimle İletişime Geçin</h2>
-    <form>
-      <input type="text" placeholder="Adınız" required>
-      <input type="email" placeholder="E-posta" required>
-      <textarea placeholder="Mesajınız" required></textarea>
-      <button type="submit">Gönder</button>
-    </form> -->
-      <div class="socials">
-        <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
-      </div>
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+      <p>Copyright &copy;Simgesel Media 2025</p>
+    </footer>
 
-
-  <!-- Footer -->
-  <footer>
-    <p>Copyright &copy;Simgesel Media 2025</p>
-  </footer>
-
-  <script src="js/script.js"></script>
-</body>
-
+    <script src="js/script.js"></script>
+  </body>
 </html>

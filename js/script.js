@@ -221,167 +221,195 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let currentPositions = [0, 1, 2, 3, 4, 5];
-  let isAnimating = false;
+let isAnimating = false;
 
-  // Full text content
-  const fullTexts = [
-    {
-      title: "Access Bars",
-      text: "Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla uygulanan bir yöntemdir. Bu noktalar, hayatımızda para, sağlık, mutluluk, yaratıcılık gibi farklı alanları temsil eder. Bars çalışması sırasında zihinde biriken gereksiz düşünceler ve sınırlayıcı kalıplar serbest bırakılır. Sonuç olarak kişi daha sakin, açık ve özgür bir zihinle yaşamına devam edebilir."
-    },
-    {
-      title: "ThetaHealing",
-      text: "ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı olan güçlü bir şifa yöntemidir. Kişi, özel bir meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına getirir ve bu derin gevşeme halinde içsel değişim kolaylaşır. Kısıtlayıcı inançlar yerine destekleyici ve iyileştirici düşünceler yerleştirilerek, kişinin yaşamında daha huzurlu ve dengeli adımlar atması hedeflenir."
-    },
-    {
-      title: "Nefes Çalışmaları",
-      text: "Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes teknikleri sayesinde beden, zihin ve ruh dengelenir. Derin ve bilinçli nefes, stresi azaltır, zihinsel berraklığı artırır ve bedeni canlandırır. Düzenli yapılan nefes çalışmaları, hem duygusal yüklerden arınmayı hem de günlük hayatta daha dingin ve enerjik hissetmeyi sağlar."
-    },
-    {
-      title: "Meditasyon",
-      text: "Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu güçlendirir, stres ve kaygıyı azaltır. Rehberli meditasyonlardan sessizlik çalışmalarına kadar farklı yöntemlerle uygulanabilir. Meditasyon sayesinde kişi, kendi iç dünyasına daha derin bir yolculuk yapar ve yaşamında farkındalık geliştirmeye başlar."
-    },
-    {
-      title: "Reiki",
-      text: "Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir şifa tekniğidir. Reiki uygulaması sırasında eller aracılığıyla enerji akışı sağlanır ve bu sayede kişinin bedeninde, zihninde ve ruhunda denge kurulur. Reiki, rahatlama, enerji artışı ve içsel huzur arayanlar için etkili bir yöntemdir. Düzenli uygulamalarla yaşam enerjisi yeniden uyumlu hale gelir."
-    },
-    {
-      title: "Kalbin Rehberliği",
-      text: "Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı öğrenmektir. Zihnin karmaşasından sıyrılarak kalbe odaklanıldığında, daha doğru ve uyumlu kararlar almak kolaylaşır. Kalbin rehberliğini takip eden kişi, yaşamını sevgi, huzur ve güven duygusuyla şekillendirebilir. Bu yaklaşım, hem ruhsal yolculukta hem de günlük hayatta kişinin kendi özüne daha yakın hissetmesini sağlar."
-    }
-  ];
+// Her balonun kendi rengini tanımlayın
+const circleColors = [
+  '#ff1744e3', // Access Bars - Kırmızı
+  '#ff9100ba', // ThetaHealing - Turuncu  
+  '#ffea00e6', // Nefes Çalışmaları - Sarı
+  '#00c853ba', // Meditasyon - Yeşil
+  '#2979ffd4', // Reiki - Mavi
+  '#aa00ffba'  // Kalbin Rehberliği - Mor
+];
 
-  // Rotate function
-  function rotate(direction = 'next') {
-    if (isAnimating) return;
-    isAnimating = true;
+// Full text content
+const fullTexts = [
+  {
+    title: "Access Bars",
+    text: "Access Bars, baş üzerinde bulunan 32 enerji noktasına hafif dokunuşlarla uygulanan bir yöntemdir. Bu noktalar, hayatımızda para, sağlık, mutluluk, yaratıcılık gibi farklı alanları temsil eder. Bars çalışması sırasında zihinde biriken gereksiz düşünceler ve sınırlayıcı kalıplar serbest bırakılır. Sonuç olarak kişi daha sakin, açık ve özgür bir zihinle yaşamına devam edebilir."
+  },
+  {
+    title: "ThetaHealing",
+    text: "ThetaHealing, bilinçaltındaki olumsuz inanç ve kalıpları dönüştürmeye yardımcı olan güçlü bir şifa yöntemidir. Kişi, özel bir meditasyon tekniğiyle beyin dalgalarını 'theta' frekansına getirir ve bu derin gevşeme halinde içsel değişim kolaylaşır. Kısıtlayıcı inançlar yerine destekleyici ve iyileştirici düşünceler yerleştirilerek, kişinin yaşamında daha huzurlu ve dengeli adımlar atması hedeflenir."
+  },
+  {
+    title: "Nefes Çalışmaları",
+    text: "Nefes, yaşam enerjimizin en önemli kaynağıdır. Farkındalıklı nefes teknikleri sayesinde beden, zihin ve ruh dengelenir. Derin ve bilinçli nefes, stresi azaltır, zihinsel berraklığı artırır ve bedeni canlandırır. Düzenli yapılan nefes çalışmaları, hem duygusal yüklerden arınmayı hem de günlük hayatta daha dingin ve enerjik hissetmeyi sağlar."
+  },
+  {
+    title: "Meditasyon",
+    text: "Meditasyon, zihni sakinleştirmenin ve anda kalmanın en etkili yollarından biridir. Düzenli meditasyon pratiği, kişinin iç huzurunu güçlendirir, stres ve kaygıyı azaltır. Rehberli meditasyonlardan sessizlik çalışmalarına kadar farklı yöntemlerle uygulanabilir. Meditasyon sayesinde kişi, kendi iç dünyasına daha derin bir yolculuk yapar ve yaşamında farkındalık geliştirmeye başlar."
+  },
+  {
+    title: "Reiki",
+    text: "Reiki, evrensel yaşam enerjisini bedene aktarmayı amaçlayan Japon kökenli bir şifa tekniğidir. Reiki uygulaması sırasında eller aracılığıyla enerji akışı sağlanır ve bu sayede kişinin bedeninde, zihninde ve ruhunda denge kurulur. Reiki, rahatlama, enerji artışı ve içsel huzur arayanlar için etkili bir yöntemdir. Düzenli uygulamalarla yaşam enerjisi yeniden uyumlu hale gelir."
+  },
+  {
+    title: "Kalbin Rehberliği",
+    text: "Kalbin rehberliği, içsel sezgiyi ve kalpten gelen bilgeliği duymayı öğrenmektir. Zihnin karmaşasından sıyrılarak kalbe odaklanıldığında, daha doğru ve uyumlu kararlar almak kolaylaşır. Kalbin rehberliğini takip eden kişi, yaşamını sevgi, huzur ve güven duygusuyla şekillendirebilir. Bu yaklaşım, hem ruhsal yolculukta hem de günlük hayatta kişinin kendi özüne daha yakın hissetmesini sağlar."
+  }
+];
 
-    const circles = document.querySelectorAll('.circle');
+// Renkleri güncelleme fonksiyonu
+function updateColors() {
+  const circles = document.querySelectorAll('.circle');
+  circles.forEach((circle, index) => {
+    const dataIndex = parseInt(circle.getAttribute('data-index'));
+    circle.style.backgroundColor = circleColors[dataIndex];
+  });
+}
 
-    if (direction === 'next') {
-      currentPositions.push(currentPositions.shift());
-    } else {
-      currentPositions.unshift(currentPositions.pop());
-    }
+// Rotate function - renk güncellemesi eklendi
+function rotate(direction = 'next') {
+  if (isAnimating) return;
+  isAnimating = true;
 
-    circles.forEach((circle, index) => {
-      circle.className = 'circle';
-      circle.classList.add(`pos-${currentPositions[index]}`);
-    });
+  const circles = document.querySelectorAll('.circle');
 
-    setTimeout(() => {
-      isAnimating = false;
-    }, 600);
+  if (direction === 'next') {
+    currentPositions.push(currentPositions.shift());
+  } else {
+    currentPositions.unshift(currentPositions.pop());
   }
 
-  // Modal functions
-  function openModal(index) {
-    const modal = document.getElementById('textModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalText = document.getElementById('modalText');
+  circles.forEach((circle, index) => {
+    circle.className = 'circle';
+    circle.classList.add(`pos-${currentPositions[index]}`);
+  });
 
-    // currentPositions array'inde hangi içerik pos-1'de ise onun index'ini bul
-    const pos1Index = currentPositions.indexOf(1);
-    const actualIndex = (pos1Index + index) % fullTexts.length;
+  // Renkleri güncelle
+  updateColors();
 
-    modalTitle.textContent = fullTexts[actualIndex].title;
-    modalText.textContent = fullTexts[actualIndex].text;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  }
+  setTimeout(() => {
+    isAnimating = false;
+  }, 600);
+}
 
-  function closeModal() {
-    const modal = document.getElementById('textModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
+// Sayfa yüklendiğinde renkleri ayarla
+function initializeColors() {
+  const circles = document.querySelectorAll('.circle');
+  circles.forEach((circle, index) => {
+    const dataIndex = parseInt(circle.getAttribute('data-index'));
+    circle.style.backgroundColor = circleColors[dataIndex];
+  });
+}
 
-  // Event listeners
+// Birden fazla yöntemle renklerin yüklenip yüklenmediğini kontrol et:
+document.addEventListener('DOMContentLoaded', initializeColors);
+window.addEventListener('load', initializeColors);
 
-  // Circle click -> sadece döndür (mobil dışında)
-  document.querySelectorAll('.circle').forEach(circle => {
-    circle.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('read-more-btn')) {
-        if (window.innerWidth > 480) {
-          rotate();
-        }
+// Modal functions
+function openModal(index) {
+  const modal = document.getElementById('textModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalText = document.getElementById('modalText');
+
+  const pos1Index = currentPositions.indexOf(1);
+  const actualIndex = (pos1Index + index) % fullTexts.length;
+
+  modalTitle.textContent = fullTexts[actualIndex].title;
+  modalText.textContent = fullTexts[actualIndex].text;
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('textModal');
+  modal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Event listeners
+document.querySelectorAll('.circle').forEach(circle => {
+  circle.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('read-more-btn')) {
+      if (window.innerWidth > 480) {
+        rotate();
       }
-    });
-  });
-
-  // Read more button click -> modal aç
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('read-more-btn')) {
-      e.stopPropagation();
-      const circle = e.target.closest('.circle');
-      const index = parseInt(circle.getAttribute('data-index'));
-      openModal(index);
     }
   });
+});
 
-  // Navigation buttons
-  document.querySelector('.next-btn').addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('read-more-btn')) {
     e.stopPropagation();
+    const circle = e.target.closest('.circle');
+    const index = parseInt(circle.getAttribute('data-index'));
+    openModal(index);
+  }
+});
+
+document.querySelector('.next-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  rotate('next');
+});
+
+document.querySelector('.prev-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  rotate('prev');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
+    e.preventDefault();
     rotate('next');
-  });
-
-  document.querySelector('.prev-btn').addEventListener('click', (e) => {
-    e.stopPropagation();
+  }
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
     rotate('prev');
-  });
+  }
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
 
-  // Klavye eventleri
-  document.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
-      e.preventDefault();
+window.addEventListener("click", (event) => {
+  const modal = document.getElementById('textModal');
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+
+document.querySelector(".close-btn").addEventListener("click", closeModal);
+
+// Touch events for mobile swipe
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  if (window.innerWidth > 480) return;
+
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
+
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
       rotate('next');
-    }
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
+    } else {
       rotate('prev');
     }
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  });
-
-  // Modal close events
-  window.addEventListener("click", (event) => {
-    const modal = document.getElementById('textModal');
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.querySelector(".close-btn").addEventListener("click", closeModal);
-
-  // Touch events for mobile swipe (optional enhancement)
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  document.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  });
-
-  function handleSwipe() {
-    if (window.innerWidth > 480) return; // Sadece mobilde çalışsın
-
-    const swipeThreshold = 50;
-    const diff = touchStartX - touchEndX;
-
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        rotate('next'); // Sola swipe -> sonraki
-      } else {
-        rotate('prev'); // Sağa swipe -> önceki
-      }
-    }
   }
+}
 
   // Seminer Fiyat Butonları
   document.querySelectorAll('.fiyat-btn').forEach(btn => {
