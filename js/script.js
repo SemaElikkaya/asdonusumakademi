@@ -452,3 +452,101 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  let instaCurrentSlide = 0;
+  const instaSlidesHolder = document.getElementById('instaSlidesHolder');
+  const instaPrevBtn = document.getElementById('instaPrevBtn');
+  const instaNextBtn = document.getElementById('instaNextBtn');
+  const instaDotsContainer = document.getElementById('instaDots');
+  let instaTotalPages = 0;
+
+  function reorganizeSlides() {
+    const screenWidth = window.innerWidth;
+    const allPosts = [];
+
+    document.querySelectorAll('.insta-page').forEach(page => {
+      const posts = page.querySelectorAll('.insta-post-box');
+      posts.forEach(post => allPosts.push(post.cloneNode(true)));
+    });
+
+    instaSlidesHolder.innerHTML = '';
+
+    let postsPerPage;
+    if (screenWidth <= 810) {
+      postsPerPage = 1;
+    } else if (screenWidth <= 1000) {
+      postsPerPage = 2;
+    } else {
+      postsPerPage = 3;
+    }
+
+    for (let i = 0; i < allPosts.length; i += postsPerPage) {
+      const page = document.createElement('div');
+      page.classList.add('insta-page');
+
+      for (let j = 0; j < postsPerPage && i + j < allPosts.length; j++) {
+        page.appendChild(allPosts[i + j]);
+      }
+
+      instaSlidesHolder.appendChild(page);
+    }
+
+    instaTotalPages = document.querySelectorAll('.insta-page').length;
+
+    instaDotsContainer.innerHTML = '';
+    for (let i = 0; i < instaTotalPages; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('insta-dot');
+      if (i === instaCurrentSlide) dot.classList.add('insta-dot-active');
+      dot.addEventListener('click', () => instaGoToPage(i));
+      instaDotsContainer.appendChild(dot);
+    }
+
+    if (instaCurrentSlide >= instaTotalPages) instaCurrentSlide = 0;
+
+    instaUpdateSlider();
+
+    // Instagram embed script yeniden işle
+    if (window.instgrm) window.instgrm.Embeds.process();
+  }
+
+  function instaUpdateSlider() {
+    instaSlidesHolder.style.transform = `translateX(-${instaCurrentSlide * 100}%)`;
+
+    const instaDots = document.querySelectorAll('.insta-dot');
+    instaDots.forEach((dot, index) => {
+      dot.classList.toggle('insta-dot-active', index === instaCurrentSlide);
+    });
+
+    instaPrevBtn.disabled = instaCurrentSlide === 0;
+    instaNextBtn.disabled = instaCurrentSlide === instaTotalPages - 1;
+  }
+
+  function instaGoToPage(index) {
+    instaCurrentSlide = index;
+    instaUpdateSlider();
+  }
+
+  instaPrevBtn.addEventListener('click', () => {
+    if (instaCurrentSlide > 0) {
+      instaCurrentSlide--;
+      instaUpdateSlider();
+    }
+  });
+
+  instaNextBtn.addEventListener('click', () => {
+    if (instaCurrentSlide < instaTotalPages - 1) {
+      instaCurrentSlide++;
+      instaUpdateSlider();
+    }
+  });
+
+  reorganizeSlides();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(reorganizeSlides, 250);
+  });
+});

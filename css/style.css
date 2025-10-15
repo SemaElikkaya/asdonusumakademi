@@ -24,6 +24,7 @@ body {
   /* scroll ile birlikte kaysın */
   background-position: top center;
   /* üstten ortadan başlasın */
+  overflow-x: hidden;
 }
 
 /* Navbar */
@@ -281,11 +282,9 @@ section {
   width: 100%;
   height: 100%;
   z-index: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(123, 84, 147, 0.7) 0%,
-    rgba(215, 177, 86, 0.7) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(123, 84, 147, 0.7) 0%,
+      rgba(215, 177, 86, 0.7) 100%);
   mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 }
@@ -386,12 +385,10 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.6s ease;
   z-index: -1;
 }
@@ -458,6 +455,7 @@ section {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
@@ -530,7 +528,8 @@ section {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
-  padding: 0 20px; /* Kenar boşlukları için */
+  padding: 0 20px;
+  /* Kenar boşlukları için */
 }
 
 .about-image {
@@ -580,7 +579,8 @@ section {
 .about-btn {
   display: inline-block;
   margin-top: 1.5rem;
-  margin-left: auto; /* Bu satırı ekle */
+  margin-left: auto;
+  /* Bu satırı ekle */
   background: #d7b156;
   color: white;
   padding: 12px 24px;
@@ -806,10 +806,8 @@ section {
   min-height: 92vh;
   margin-top: 8vh;
   background-color: #fff;
-  background-image: radial-gradient(
-    rgba(203, 161, 53, 0.15) 3px,
-    transparent 3px
-  );
+  background-image: radial-gradient(rgba(203, 161, 53, 0.15) 3px,
+      transparent 3px);
   background-size: 10px 10px;
   color: var(--text-main);
   text-align: center;
@@ -1203,6 +1201,7 @@ section {
   font-size: 2rem;
   margin-top: 4rem;
 }
+
 .circle.pos-3 .circle-title,
 .circle.pos-5 .circle-title {
   font-size: 1.5rem;
@@ -1312,6 +1311,7 @@ section {
     font-size: 1.7rem;
     margin-top: 5rem;
   }
+
   .circle.pos-3 .circle-title,
   .circle.pos-5 .circle-title {
     font-size: 1.5rem;
@@ -1382,6 +1382,7 @@ section {
     font-size: 2rem;
     margin-top: 4rem;
   }
+
   .circle.pos-3 .circle-title,
   .circle.pos-5 .circle-title {
     font-size: 1.5rem;
@@ -1790,4 +1791,421 @@ footer {
   text-align: center;
   padding: 20px 0;
   /* margin-top: 40px; */
+}
+
+.insta-gallery {
+  display: grid;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem 1rem;
+  overflow-x: hidden;
+}
+
+.insta-header {
+  margin-bottom: 4rem;
+}
+
+.insta-header h2 {
+  font-size: 3rem;
+  color: #7b5493;
+  border-bottom: #d7b156 3px solid;
+  font-weight: bold;
+  display: inline-block;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.insta-header p {
+  font-size: 1.3rem;
+  color: #666;
+  margin-top: 1.5rem;
+}
+
+.insta-slider-box {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.insta-viewport {
+  overflow: hidden;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.insta-slides-holder {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.insta-page {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.insta-post-box {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+}
+
+.insta-post-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(123, 84, 147, 0.3);
+}
+
+.insta-post-box iframe {
+  width: 100% !important;
+  min-height: 600px;
+  border: none !important;
+  margin-top: -58px !important;
+  margin-bottom: -180px !important;
+  max-height: 680px !important;
+}
+
+.insta-post-box .instagram-media {
+  min-width: 100% !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.insta-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(123, 84, 147, 0.9);
+  border: 2px solid #d7b156;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 10;
+  font-size: 24px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.insta-nav-btn:hover {
+  background: #7b5493;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(123, 84, 147, 0.4);
+}
+
+.insta-nav-btn.insta-prev {
+  left: 10px;
+}
+
+.insta-nav-btn.insta-next {
+  right: 10px;
+}
+
+.insta-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: rgba(123, 84, 147, 0.3);
+}
+
+.insta-nav-btn:disabled:hover {
+  transform: translateY(-50%) scale(1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.insta-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.insta-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(123, 84, 147, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.insta-dot.insta-dot-active {
+  background: #7b5493;
+  width: 35px;
+  border-radius: 8px;
+  border-color: #d7b156;
+}
+
+.insta-dot:hover:not(.insta-dot-active) {
+  background: rgba(123, 84, 147, 0.6);
+}
+
+.insta-more-btn {
+  display: inline-block;
+  margin: 3rem auto 0;
+  padding: 0.9rem 2.2rem;
+  background-color: #7b5493;
+  color: #fff;
+  border: 2px solid #d7b156;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(123, 84, 147, 0.2);
+}
+
+.insta-more-btn:hover {
+  background-color: #d7b156;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(123, 84, 147, 0.3);
+}
+
+.insta-more-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(123, 84, 147, 0.2);
+}
+
+/* 1400px civarı */
+@media (max-width: 2000px) and (min-width: 1310px) {
+  .insta-nav-btn.insta-prev {
+    left: -2rem;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: -2rem;
+  }
+}
+
+/* 1200px civarı */
+@media (max-width: 1311px) and (min-width: 1001px) {
+.insta-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .insta-nav-btn.insta-prev {
+    left: -1rem;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: -1rem;
+  }
+}
+
+
+/* Tablet - 2 post */
+@media (max-width: 1000px) {
+  .insta-slider-box {
+    padding: 0 4rem;
+  }
+
+  .insta-page {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .insta-post-box iframe {
+    min-height: 580px;
+    max-height: 650px !important;
+  }
+
+  .insta-header h2 {
+    font-size: 2.5rem;
+  }
+
+  .insta-header p {
+    font-size: 1.2rem;
+  }
+}
+
+/* Tablet küçük */
+@media (max-width: 768px) {
+  .insta-slider-box {
+    padding: 0 3rem;
+  }
+
+  .insta-nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .insta-page {
+    gap: 12px;
+  }
+
+  .insta-header h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Mobil - 1 post */
+@media (max-width: 811px) {
+  .insta-gallery {
+    padding: 2rem 0.5rem;
+  }
+
+  .insta-header h2 {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+
+  .insta-header p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+
+  .insta-slider-box {
+    padding: 0 2.5rem;
+  }
+
+  .insta-nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+
+  .insta-nav-btn.insta-prev {
+    left: 5px;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: 5px;
+  }
+
+  .insta-page {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .insta-post-box {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .insta-post-box iframe {
+    min-height: 580px;
+    max-height: 650px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .insta-more-btn {
+    padding: 0.75rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+/* 520px ve altı ekranlarda okları biraz içeri al */
+@media (max-width: 520px) {
+  .insta-nav-btn.insta-prev {
+    left: -5px !important;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: -5px !important;
+  }
+}
+
+/* Küçük mobil - 400px ve altı */
+@media (max-width: 400px) {
+  .insta-gallery {
+    padding: 1.5rem 0.25rem;
+  }
+
+  .insta-header h2 {
+    font-size: 1.6rem;
+    padding: 0 0.5rem;
+  }
+
+  .insta-header p {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .insta-slider-box {
+    padding: 0 2rem;
+  }
+
+  .insta-viewport {
+    border-radius: 12px;
+  }
+
+  .insta-nav-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  .insta-nav-btn.insta-prev {
+    left: 2px;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: 2px;
+  }
+
+  .insta-post-box {
+    max-width: 340px;
+    border-radius: 12px;
+  }
+
+  .insta-post-box iframe {
+    min-height: 520px;
+    max-height: 600px !important;
+    margin-top: -55px !important;
+    margin-bottom: -170px !important;
+  }
+
+  .insta-dots {
+    gap: 8px;
+    margin-top: 30px;
+  }
+
+  .insta-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .insta-dot.insta-dot-active {
+    width: 28px;
+  }
+}
+
+/* Çok küçük ekranlar - 360px ve altı */
+@media (max-width: 360px) {
+  .insta-slider-box {
+    padding: 0 1.5rem;
+  }
+
+  .insta-post-box {
+    max-width: 300px;
+  }
+
+  .insta-post-box iframe {
+    min-height: 480px;
+    max-height: 560px !important;
+  }
 }
