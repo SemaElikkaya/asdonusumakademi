@@ -1888,29 +1888,22 @@ footer {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(123, 84, 147, 0.9);
-  border: 2px solid #d7b156;
-  color: white;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
+  background: none;
+  border: none;
+  color: #7b5493;
+  /* Swiper’daki mor ton */
+  font-size: 5rem;
+  font-weight: 100;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   z-index: 10;
-  font-size: 24px;
-  font-weight: bold;
-  flex-shrink: 0;
 }
 
+/* Hover efekti */
 .insta-nav-btn:hover {
-  background: #7b5493;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(123, 84, 147, 0.4);
+  color: #9b6af7;
 }
+
 
 .insta-nav-btn.insta-prev {
   left: 10px;
@@ -1923,7 +1916,6 @@ footer {
 .insta-nav-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  background: rgba(123, 84, 147, 0.3);
 }
 
 .insta-nav-btn:disabled:hover {
@@ -1960,9 +1952,11 @@ footer {
 }
 
 .insta-more-btn {
-  display: inline-block;
-  margin: 3rem auto 0;
-  padding: 0.9rem 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto 0 auto;
+  padding: 0.9rem 2.5rem;
   background-color: #7b5493;
   color: #fff;
   border: 2px solid #d7b156;
@@ -1999,11 +1993,6 @@ footer {
 
 /* 1200px civarı */
 @media (max-width: 1311px) and (min-width: 1001px) {
-.insta-nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
 
   .insta-nav-btn.insta-prev {
     left: -1rem;
@@ -2046,12 +2035,6 @@ footer {
     padding: 0 3rem;
   }
 
-  .insta-nav-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 22px;
-  }
-
   .insta-page {
     gap: 12px;
   }
@@ -2081,18 +2064,12 @@ footer {
     padding: 0 2.5rem;
   }
 
-  .insta-nav-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-  }
-
   .insta-nav-btn.insta-prev {
-    left: 5px;
+    left: 5rem;
   }
 
   .insta-nav-btn.insta-next {
-    right: 5px;
+    right: 5rem;
   }
 
   .insta-page {
@@ -2111,6 +2088,16 @@ footer {
   }
 }
 
+@media (max-width:650px) {
+  .insta-nav-btn.insta-prev {
+    left: 0rem;
+  }
+
+  .insta-nav-btn.insta-next {
+    right: 0rem;
+  }
+}
+
 @media (max-width: 600px) {
   .insta-more-btn {
     padding: 0.75rem 1.8rem;
@@ -2118,7 +2105,6 @@ footer {
   }
 }
 
-/* 520px ve altı ekranlarda okları biraz içeri al */
 @media (max-width: 520px) {
   .insta-nav-btn.insta-prev {
     left: -5px !important;
@@ -2128,11 +2114,23 @@ footer {
     right: -5px !important;
   }
 }
+@media(max-width: 552px) {
+.insta-header h2 {
+    font-size: 1.5rem;
+    padding: 0 0.9rem;
+  }
+}
 
-/* Küçük mobil - 400px ve altı */
+@media(max-width: 422px) {
+.insta-header h2 {
+    padding: 0 0.2rem;
+  }
+}
+
+
 @media (max-width: 400px) {
   .insta-gallery {
-    padding: 1.5rem 0.25rem;
+    padding: 1.5rem 0rem;
   }
 
   .insta-header h2 {
@@ -2151,12 +2149,6 @@ footer {
 
   .insta-viewport {
     border-radius: 12px;
-  }
-
-  .insta-nav-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 18px;
   }
 
   .insta-nav-btn.insta-prev {
@@ -2207,5 +2199,11 @@ footer {
   .insta-post-box iframe {
     min-height: 480px;
     max-height: 560px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .insta-slider-box {
+    padding: 0 0rem;
   }
 }
