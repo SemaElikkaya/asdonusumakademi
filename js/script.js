@@ -459,6 +459,27 @@ document.addEventListener('DOMContentLoaded', function () {
   const instaPrevBtn = document.getElementById('instaPrevBtn');
   const instaNextBtn = document.getElementById('instaNextBtn');
   const instaDotsContainer = document.getElementById('instaDots');
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+if (isIOS) {
+  // Instagram script'i temizle ve yeniden yükle
+  const oldScripts = document.querySelectorAll('script[src*="instagram.com/embed.js"]');
+  oldScripts.forEach(script => script.remove());
+  
+  // Yeni script ekle
+  const newScript = document.createElement('script');
+  newScript.src = 'https://www.instagram.com/embed.js';
+  newScript.async = true;
+  newScript.onload = () => {
+    console.log('Instagram embed script loaded for iOS');
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
+  };
+  document.head.appendChild(newScript);
+}
+
   let instaTotalPages = 0;
 
   function reorganizeSlides() {
@@ -511,17 +532,33 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.instgrm) window.instgrm.Embeds.process();
   }
 
-  function instaUpdateSlider() {
-    instaSlidesHolder.style.transform = `translateX(-${instaCurrentSlide * 100}%)`;
+function instaUpdateSlider() {
+  instaSlidesHolder.style.transform = `translateX(-${instaCurrentSlide * 100}%)`;
 
-    const instaDots = document.querySelectorAll('.insta-dot');
-    instaDots.forEach((dot, index) => {
-      dot.classList.toggle('insta-dot-active', index === instaCurrentSlide);
-    });
+  const instaDots = document.querySelectorAll('.insta-dot');
+  instaDots.forEach((dot, index) => {
+    dot.classList.toggle('insta-dot-active', index === instaCurrentSlide);
+  });
 
-    instaPrevBtn.disabled = instaCurrentSlide === 0;
-    instaNextBtn.disabled = instaCurrentSlide === instaTotalPages - 1;
-  }
+  instaPrevBtn.disabled = instaCurrentSlide === 0;
+  instaNextBtn.disabled = instaCurrentSlide === instaTotalPages - 1;
+
+  // Tüm Instagram videolarını durdur - iframe'i yeniden yükleyerek
+  const allPages = document.querySelectorAll('.insta-page');
+  allPages.forEach((page, pageIndex) => {
+    if (pageIndex !== instaCurrentSlide) {
+      // Görünmeyen sayfalardaki iframe'leri yeniden yükle (videoyu durdurur)
+      const iframes = page.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        const src = iframe.src;
+        iframe.src = '';
+        setTimeout(() => {
+          iframe.src = src;
+        }, 100);
+      });
+    }
+  });
+}
 
   function instaGoToPage(index) {
     instaCurrentSlide = index;
